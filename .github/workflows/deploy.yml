@@ -8,7 +8,8 @@ on:
   # Te permite ejecutar este workflow manualmente desde la pestaña Actions en GitHub.
   workflow_dispatch:
   repository_dispatch:
-    types: [deploy]
+    types:
+      - deploy
 # Permite clonar el repositorio y desplegar el proyecto
 permissions:
   contents: read
