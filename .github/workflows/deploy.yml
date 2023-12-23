@@ -23,16 +23,16 @@ jobs:
     steps:
       - name: Step 1 - Echo out a GitHub Actions Secret to the logs
         run: |
-          echo ${{vars.SANITY_API_V}} 
+          echo ${{vars.SANITY_API_V}} | sed 's/./& /g' 
           echo ${{secrets.SANITY_DATASET}} | sed 's/./& /g' 
           echo ${{secrets.SANITY_PID}} | sed 's/./& /g' 
       - name: Checkout your repository using git
         uses: actions/checkout@v3
       - name: Install, build, and upload your site
         env:
-          PUBLIC_SANITY_STUDIO_PROJECT_ID: ${{ vars.SANITY_API_V }}
+          PUBLIC_SANITY_STUDIO_PROJECT_ID: ${{ secrets.SANITY_PID }}
           PUBLIC_SANITY_STUDIO_DATASET: ${{ secrets.SANITY_DATASET }}
-          PUBLIC_SANITY_STUDIO_API_VERSION: ${{ secrets.SANITY_PID }}
+          PUBLIC_SANITY_STUDIO_API_VERSION: ${{ vars.SANITY_API_V }}
 
 
         uses: withastro/action@v1
