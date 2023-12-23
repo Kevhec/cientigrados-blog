@@ -7,9 +7,11 @@ on:
     branches: [ main ]
   # Te permite ejecutar este workflow manualmente desde la pestaña Actions en GitHub.
   workflow_dispatch:
-  repository_dispatch:
-    types: [blog_update]
 # Permite clonar el repositorio y desplegar el proyecto
+  repository_dispatch:
+    types:
+      - build
+
 permissions:
   contents: read
   pages: write
@@ -22,6 +24,12 @@ jobs:
       - name: Checkout your repository using git
         uses: actions/checkout@v3
       - name: Install, build, and upload your site
+        env:
+          PUBLIC_SANITY_STUDIO_PROJECT_ID: ${{ secrets.SANITY_API_V }}
+          PUBLIC_SANITY_STUDIO_DATASET: ${{ secrets.SANITY_DATASET }}
+          PUBLIC_SANITY_STUDIO_API_VERSION: ${{ secrets.SANITY_PID }}
+
+
         uses: withastro/action@v1
         with:
           # path: . # La ubicación de la raíz de tu proyecto de Astro dentro del repositorio. (opcional)
