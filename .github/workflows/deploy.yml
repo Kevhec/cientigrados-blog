@@ -10,7 +10,7 @@ on:
 # Permite clonar el repositorio y desplegar el proyecto
   repository_dispatch:
     types:
-      - build
+      - blog_update
 
 permissions:
   contents: read
