@@ -1,13 +1,14 @@
 ---
 import { sanityClient } from 'sanity:client'
-import PortableText from '../../components/PortableText.astro'
-import type { BlogPost } from '../../types/sanityTypes'
+import PortableText from '@components/PortableText.astro'
+import { type BlogPost } from '../../types/sanityTypes'
 import BaseLayout from '@layouts/BaseLayout.astro'
 
 export async function getStaticPaths() {
-  const posts = await sanityClient.fetch<Promise<BlogPost[]>>(`*[_type == "post"]`)
+  const posts =
+    await sanityClient.fetch<Promise<BlogPost[]>>(`*[_type == "post"]`)
   return posts.map((post) => {
-    const { slug, title, content } = post;
+    const { slug, title, content } = post
 
     return {
       params: { slug: slug.current || '' },
@@ -16,13 +17,12 @@ export async function getStaticPaths() {
   })
 }
 
-const { title, content } = Astro.props;
+const { title, content } = Astro.props
 ---
 
-<BaseLayout title={ title }>
-  <h1>{title}</h1>
-  <main>
+<BaseLayout title={title} page='Blog'>
+  <h1 class="text-center font-robotoMono mb-6 font-bold text-white text-lg">{title}</h1>
+  <main class="bg-slate-100 p-3 rounded">
     <PortableText portableText={content} />
   </main>
 </BaseLayout>
-

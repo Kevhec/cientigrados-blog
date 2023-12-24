@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: 'RobotoMono Italic';
+    font-style: italic;
+    font-weight: 100 700;
+    font-display: block; /* This property will help us not flash unstyled text for a couple hundred milliseconds, and then it would act like font-display: swap */
+    src: url('/fonts/RobotoMono-Italic-VariableFont_wght.ttf') format('ttf');
+  }
+  @font-face {
+    font-family: 'RobotoMono';
+    font-style: normal;
+    font-weight: 100 700;
+    font-display: block; /* This property will help us not flash unstyled text for a couple hundred milliseconds, and then it would act like font-display: swap */
+    src: url('fonts/RobotoMono-VariableFont_wght.ttf') format('ttf');
+  }
+}

@@ -1,14 +1,26 @@
 export interface BlogPost {
-  _createdAt: Date;
-  _id:        string;
-  _rev:       string;
-  _type:      string;
-  _updatedAt: Date;
-  author:     Author;
-  content:    Content[];
-  mainImage:  MainImage;
-  slug:       Slug;
-  title:      string;
+  _id:         string;
+  _type:       string;
+  _createdAt:  Date;
+  author:      Author;
+  content:     Content[];
+  mainImage:   SanityImage;
+  publishedAt: Date;
+  slug:        Slug;
+  title:       string;
+  excerpt:     string;
+  _rev:        string;
+  _updatedAt:  Date;
+}
+
+export interface PostPreview {
+  _id:         string;
+  author:      {name: string};
+  excerpt:     string;
+  mainImage:   SanityImage;
+  publishedAt: Date;
+  slug:        Slug;
+  title:       string;
 }
 
 export interface Author {
@@ -18,20 +30,32 @@ export interface Author {
 
 export interface Content {
   _key:      string;
-  _type:     string;
+  _type:     ContentType;
   children?: Child[];
-  markDefs?: any[];
+  markDefs?: MarkDef[];
   style?:    string;
+  level?:    number;
+  listItem?: string;
+  alt?:      string;
   asset?:    Author;
   crop?:     Crop;
   hotspot?:  Hotspot;
 }
 
+export enum ContentType {
+  Block = "block",
+  Image = "image",
+}
+
 export interface Child {
   _key:  string;
-  _type: string;
+  _type: ChildType;
   marks: string[];
   text:  string;
+}
+
+export enum ChildType {
+  Span = "span",
 }
 
 export interface Crop {
@@ -50,8 +74,15 @@ export interface Hotspot {
   y:      number;
 }
 
-export interface MainImage {
+export interface MarkDef {
+  _key:  string;
   _type: string;
+  blank: boolean;
+  href:  string;
+}
+
+export interface SanityImage {
+  _type: ContentType;
   asset: Author;
 }
 

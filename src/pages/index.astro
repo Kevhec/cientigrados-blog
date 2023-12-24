@@ -1,9 +1,25 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro'
+import PostPreview from '@components/PostPreview.astro';
+import { getAllPostsPreviews } from '@lib/sanity/getPosts';
 
 const title = 'Cientígrados - Inicio'
+const posts = await getAllPostsPreviews();
 ---
 
-<BaseLayout title={title}>
-  <h1>Inicio de cientígrados</h1>
+<BaseLayout title={title} page='Inicio'>
+  <main>
+    <h2 class="text-center font-robotoMono mb-6 font-bold text-white text-lg">
+      Últimos posts
+    </h2>
+    <ul class="grid md:grid-cols-2 grid-rows-2 gap-3">
+      {posts.map((post) => {
+        return (
+          <li>
+            <PostPreview post={post} />
+          </li>
+        )
+      })}
+    </ul>
+  </main>
 </BaseLayout>

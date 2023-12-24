@@ -1,21 +1,12 @@
 ---
-import { urlForImage } from '../lib/sanity/urlForImage';
+import SanityImage from './SanityImage.astro';
 
-const { asset, alt } = Astro.props.node;
-
-const url = urlForImage(asset).width(200).url();
-const webpUrl = urlForImage(asset).width(200).format('webp').url();
-
+const { asset, alt } = Astro.props.node
 ---
 
-<picture>
-  <source
-    srcset={webpUrl}
-    type="image/webp"
-  />
-  <img
-    class="responsive__img"
-    src={url}
-    alt={alt}
-  />
-</picture>
+<SanityImage
+  asset={asset}
+  alt={alt}
+  width={200}
+  height={200}
+/>
