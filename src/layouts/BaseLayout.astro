@@ -1,5 +1,7 @@
 ---
 import { ViewTransitions } from 'astro:transitions';
+import '../styles/main.css'
+import '../styles/reset.css'
 interface Props {
   title: string
   page: string
@@ -27,8 +29,6 @@ const { title, page } = Astro.props
       type="font/ttf"
       crossorigin
     />
-    <link rel="stylesheet" href="src/styles/reset.css">
-    <link rel="stylesheet" href="src/styles/main.css">
     <ViewTransitions/>
   </head>
   <body class="bg-slate-700 min-h-screen py-4" transition:animate="slide">
