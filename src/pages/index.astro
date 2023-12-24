@@ -1,16 +1,9 @@
 ---
-console.log(import.meta.env.PUBLIC_SANITY_STUDIO_PROJECT_ID)
+import BaseLayout from '@layouts/BaseLayout.astro'
+
+const title = 'Cientígrados - Inicio'
 ---
 
-<html lang="es">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Cientígrados</title>
-	</head>
-	<body>
-		<h1>Cientígrados</h1>
-	</body>
-</html>
+<BaseLayout title={title}>
+  <h1>Inicio de cientígrados</h1>
+</BaseLayout>

@@ -1,0 +1,9 @@
+---
+
+const { markDef } = Astro.props.node
+const { href, blank } = markDef
+const targetValue = blank ? '_blank' : null;
+
+---
+
+<a href={href} target={targetValue} rel="noopener"><slot /></a>
