@@ -8,30 +8,42 @@ interface Props {
 }
 
 const { title, page } = Astro.props
+
+const isProd = import.meta.env.MODE === 'production'
+
+function prodUrl (assetPath: string) {
+  const base = '/cientigrados-frontend'
+
+  return isProd
+    ? assetPath
+    : base + assetPath
+}
+
 ---
 
-<html lang='es' transition:name="slide">
+<html lang='es'>
   <head>
     <meta charset='UTF-8' />
     <meta name='viewport' content='width=device-width, initial-scale=1.0' />
     <title>{title}</title>
     <link
       rel="preload"
-      href="fonts/RobotoMono-VariableFont_wght.ttf"
+      href={prodUrl("/fonts/RobotoMono-VariableFont_wght.ttf")}
       as="font"
       type="font/ttf"
       crossorigin
     />
     <link
       rel="preload"
-      href="fonts/RobotoMono-Italic-VariableFont_wght.ttf"
+      href={prodUrl("/fonts/RobotoMono-Italic-VariableFont_wght.ttf")}
       as="font"
       type="font/ttf"
       crossorigin
     />
-    <ViewTransitions/>
+    <meta name="view-transition" content="same-origin" >
+    <ViewTransitions fallback='none' />
   </head>
-  <body class="bg-slate-700 min-h-screen py-4" transition:animate="slide">
+  <body class="bg-slate-700 min-h-screen py-4">
     <div class="mx-auto max-w-7xl w-4/5">
       <header class="pt-2 pb-4">
         <a href="/cientigrados-frontend">
@@ -40,7 +52,9 @@ const { title, page } = Astro.props
           </h1>
         </a>
       </header>
-      <slot />
+      <main>
+        <slot />
+      </main>
     </div>
   </body>
 </html>

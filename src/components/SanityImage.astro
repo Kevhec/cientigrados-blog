@@ -1,18 +1,36 @@
 ---
 import { urlForImage } from '@lib/sanity/urlForImage';
-import { type SanityImage } from '../types/sanityTypes'
+import { type Ref } from '../types/sanityTypes'
 
 interface Props {
-  asset: SanityImage
+  asset: Ref
   alt: string,
-  width: number
-  height: number
+  imageDim?: {
+    width: number
+    height: number
+  },
+  containerDim: {
+    width: number
+    height: number
+  }
   className?: string
+  transitionName?: string
 }
 
-const { asset, alt, width, height, className } = Astro.props
+const {
+  asset,
+  alt,
+  containerDim,
+  imageDim,
+  className,
+  transitionName
+} = Astro.props
 
-const baseMethods = asset && urlForImage(asset).width(width).height(height)
+const baseMethods = asset &&
+  urlForImage(asset)
+    .width(imageDim?.width || 200)
+    .height(imageDim?.height || 200)
+    .quality(80)
 
 const url = baseMethods.url()
 const webpUrl = baseMethods.format('webp').url()
@@ -25,7 +43,8 @@ const webpUrl = baseMethods.format('webp').url()
     src={url}
     alt={alt}
     loading="lazy"
-    width={width}
-    height={height}
+    width={containerDim.width}
+    height={containerDim.height}
+    transition:name={transitionName}
   />
 </picture>

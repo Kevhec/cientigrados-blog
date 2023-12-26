@@ -12,7 +12,7 @@ const posts = await getAllPostsPreviews();
     <h2 class="text-center font-robotoMono mb-6 font-bold text-white text-lg">
       Últimos posts
     </h2>
-    <ul class="grid md:grid-cols-2 grid-rows-2 gap-3">
+    <ul class="grid md:grid-cols-2 lg:grid-cols-3 grid-rows-2 gap-3">
       {posts.map((post) => {
         return (
           <li>

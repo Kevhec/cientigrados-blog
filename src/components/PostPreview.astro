@@ -11,20 +11,40 @@ const { post } = Astro.props
 const {
   _id, author, excerpt, mainImage, publishedAt, slug, title,
 } = post;
+
+console.log(`blogpost-${_id}-container`)
 ---
 
-<article class="bg-slate-100 rounded-lg px-4 py-4 md:h-[22rem] h-96 flex flex-col">
+<article
+  class="bg-slate-100 rounded-lg px-4 py-4 md:h-[22rem] h-96 flex flex-col"
+  transition:name=`blogpost-${_id}-container`
+>
   <header>
-    <h1 class="font-robotoMono font-semibold mb-3 ">{title}</h1>
+    <h1
+      class="font-robotoMono mb-3 font-bold text-black"
+      transition:name=`blogpost-${_id}-title`
+    >
+      {title}
+    </h1>
     <SanityImage
-      asset={mainImage}
+      asset={mainImage.asset}
       alt='Blog post'
-      width={200}
-      height={100}
+      imageDim={{
+        width: 200,
+        height: 200
+      }}
+      containerDim={{
+        width: 1,
+        height: 150
+      }}
       className='w-full h-28 object-cover'
+      transitionName={`blogpost-${_id}-main-image`}
     />
   </header>
-  <section class="mb-3 mt-1">
+  <section
+    class="mb-3 mt-1"
+    transition:name=`blogpost-${_id}-metadata`
+  >
     {author &&
       <p>Por {author.name}</p>
     }

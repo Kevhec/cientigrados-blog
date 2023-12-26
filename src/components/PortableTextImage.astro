@@ -1,12 +1,16 @@
 ---
 import SanityImage from './SanityImage.astro';
 
-const { asset, alt } = Astro.props.node
+const { asset, alt, name } = Astro.props.node
+
+/* console.log(Astro.props.node) */
 ---
 
 <SanityImage
   asset={asset}
   alt={alt}
-  width={200}
-  height={200}
+  containerDim={{
+    width: 200,
+    height: 200
+  }}
 />

@@ -1,0 +1,20 @@
+---
+import type { List, Props as $ } from 'astro-portabletext/types';
+
+export type Props = $<List>;
+
+const { node, index, isInline, ...attrs } = Astro.props;
+const listItemIs = (listItem: string) => listItem === node.listItem;
+---
+
+{
+  listItemIs("number") ? (
+    <ol {...attrs} class="list-decimal list-inside">
+      <slot />
+    </ol>
+  ) : (
+    <ul {...attrs} class="list-disc list-inside">
+      <slot />
+    </ul>
+  )
+}

@@ -4,4 +4,11 @@ const { href, blank } = markDef
 const targetValue = blank ? '_blank' : null
 ---
 
-<a href={href} target={targetValue} rel='noopener'><slot /></a>
+<a
+  href={href}
+  target={targetValue}
+  rel='noopener'
+  class="text-indigo-900 font-medium"
+>
+    <slot />
+  </a>

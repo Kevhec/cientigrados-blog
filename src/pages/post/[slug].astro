@@ -1,28 +1,74 @@
 ---
 import { sanityClient } from 'sanity:client'
 import PortableText from '@components/PortableText.astro'
-import { type BlogPost } from '../../types/sanityTypes'
+import { type BlogPostAuthorName } from '../../types/sanityTypes'
 import BaseLayout from '@layouts/BaseLayout.astro'
+import SanityImage from '@components/SanityImage.astro'
 
 export async function getStaticPaths() {
   const posts =
-    await sanityClient.fetch<Promise<BlogPost[]>>(`*[_type == "post"]`)
-  return posts.map((post) => {
-    const { slug, title, content } = post
+    await sanityClient.fetch<Promise<BlogPostAuthorName[]>>(`*[_type == "post"]{
+      ...,
+      author -> { name },
+    }`)
 
+  return posts.map((post) => {
     return {
-      params: { slug: slug.current || '' },
-      props: { title, content }
+      params: { slug: post.slug.current || '' },
+      props: { post }
     }
   })
 }
 
-const { title, content } = Astro.props
+const { post } = Astro.props
+
+const {
+  _id,
+  author,
+  content,
+  mainImage,
+  publishedAt,
+  slug,
+  title,
+} = post
+
+console.log(publishedAt)
 ---
 
 <BaseLayout title={title} page='Blog'>
-  <h1 class="text-center font-robotoMono mb-6 font-bold text-white text-lg">{title}</h1>
-  <main class="bg-slate-100 p-3 rounded">
+  <article
+    class="bg-slate-100 p-3 rounded-lg"
+    transition:name=`blogpost-${_id}-container`
+  >
+    <h1
+      class="text-center font-robotoMono mb-4 font-bold text-black text-lg"
+      transition:name=`blogpost-${_id}-title`
+    >
+      {title}
+    </h1>
+    <SanityImage
+      asset={mainImage.asset}
+      alt={mainImage.alt}
+      imageDim={{
+        width: 300,
+        height: 300,
+      }}
+      containerDim={{
+        width:1,
+        height: 400
+      }}
+      className='w-full h-80 object-cover'
+      transitionName={`blogpost-${_id}-main-image`}
+    />
+    <section
+    class="mb-3 mt-1"
+    transition:name=`blogpost-${_id}-metadata`
+    >
+      {author &&
+        <p>Por {author.name}</p>
+      }
+      <p class="text-xs text-slate-700">Fecha: {publishedAt}</p>
+    </section>
     <PortableText portableText={content} />
-  </main>
+</article>
 </BaseLayout>
